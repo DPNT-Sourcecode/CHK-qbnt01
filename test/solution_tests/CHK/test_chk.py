@@ -74,11 +74,12 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("D"), 15)
 
     def test_checkout_deal(self):
-        self.assertEqual(checkout_solution.checkout("AA"), 100)
-        self.assertEqual(checkout_solution.checkout("AAA"), 130)
-        self.assertEqual(checkout_solution.checkout("AAAA"), 180)
-        self.assertEqual(checkout_solution.checkout("AAAAA"), 230)
-        self.assertEqual(checkout_solution.checkout("AAAAAA"), 260)
+        self.assertEqual(checkout_solution.checkout("AA"), 100) # 2
+        self.assertEqual(checkout_solution.checkout("AAA"), 130) # 3
+        self.assertEqual(checkout_solution.checkout("AAAA"), 180) # 4
+        self.assertEqual(checkout_solution.checkout("AAAAA"), 200) # 5
+        self.assertEqual(checkout_solution.checkout("AAAAAA"), 250) # 6
+        self.assertEqual(checkout_solution.checkout("AAAAAAAA"), 330) # 8
 
     def test_checkout_multiple_items(self):
         self.assertEqual(checkout_solution.checkout("AB"), 80)
@@ -86,3 +87,4 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
+

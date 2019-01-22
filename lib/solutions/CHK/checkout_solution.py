@@ -200,10 +200,11 @@ def checkout(skus):
         ctr = 10
         # loop in order to apply deal as many times as is valid
         while reqs_counter is not None and ctr > 0:
-            ctr += 1
+            ctr -= 1
             total_cost += deal_cost
             # subtract items from basket
             items_counter -= reqs_counter
+            reqs_counter = requirements_satisfied(items_counter, requirements)
 
     # for any remaining items, just add cost
     for item, quantity in items_counter.iteritems():
@@ -219,6 +220,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
