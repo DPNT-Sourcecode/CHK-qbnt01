@@ -171,11 +171,15 @@ def requirements_satisfied(items_counter, requirements):
 def evaluate_deals(items_counter, ordered_deals):
     """
     Iterates through deals (best deals first) and applies as many
-    as possible to customer basket.
+    as possible to customer basket (and removes these items so they
+    are not counted again).
     Args:
-        items_counter
+        items_counter (collections.Counter): Occurrences of each item in basket
+        ordered_deals (list(tuples)): [(deal, requirements, saving, deal_cost)]
+    Returns:
+        (int): cost of deals
     """
-
+    total_cost = 0
     for (deal, requirements, saving, deal_cost) in ordered_deals:
         reqs_counter = requirements_satisfied(items_counter, requirements)
         # sanity check to avoid infinite loop. Assuming someone can't
@@ -190,6 +194,9 @@ def evaluate_deals(items_counter, ordered_deals):
             
             # recalculate for next loop iteration
             reqs_counter = requirements_satisfied(items_counter, requirements)
+
+    return total_cost
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -226,5 +233,6 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
