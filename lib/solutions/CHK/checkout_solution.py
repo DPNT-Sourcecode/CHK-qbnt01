@@ -146,7 +146,8 @@ def get_ordered_deals(item_prices, item_deals):
         item_deals (set): set([deal1, deal2, etc.])
     Returns:
         ordered_deals (list(tuple)): 
-            [(deal_x, saving_x), (deal_y, saving_y), ..]
+            [(deal_x, requirements_x, saving_x, cost_x),
+            (deal_y, requirements_y, saving_y, cost_y), ..]
     """
     deal_savings = []
     for deal in item_deals:
@@ -164,14 +165,12 @@ def requirements_satisfied(items_counter, requirements):
     Args:
         items_counter (collections.Counter): items in basket
             with number of occurrences
-        requirements (list): list of requirements for this deal eg. ['2E', 'B']
+        requirements (collections.Counter):  items and quantity required to complete deal
+            eg. {'F': 3}
     Returns:
-        nullable(collections.Counter): Counter showing how many of each item
-        this deal uses. Returns None if the deal requirements are not met.
+        (bool) are requirements
     """
-    c = Counter()
-    for r in requirements:
-        quantity, item = parse_deal_code(r)
+    for item, quantity in requirements.iteritems():
         if (
             None in (quantity, item)
             or item not in items_counter
@@ -179,7 +178,7 @@ def requirements_satisfied(items_counter, requirements):
         ):
             # requirements for this deal not satisfied
             return None
-            
+
         # if item is already in c then this will sum the values
         c.update({item: quantity})
 
@@ -254,4 +253,5 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
