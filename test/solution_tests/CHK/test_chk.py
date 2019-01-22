@@ -109,7 +109,3 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
-
-
-
-

@@ -91,15 +91,19 @@ def aggregate_requirements(groups):
     """
     Returns requirements for deal from multiple groups.
     If the groups contain the same item then they should be combined.
-    eg. 2F, F should become 3F
+    eg. 2F, F should count as needing 3 F's to apply the deal
     Args:
         groups (tuple) items and quantities required
     Returns:
-        list(str): what is needed to complete the deal eg. [2E, B]
+        (collections.Counter): items and quantity required to complete deal
+            eg. {'F': 3}
     """
+    requirements = Counter()
     for group in groups:
-        if group 
-    return list(groups)
+        quantity, item = parse_deal_code(group)
+        requirements.update({item: quantity})
+
+    return requirements
 
 def calculate_saving(deal, item_prices):
     """
@@ -249,7 +253,3 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
-
-
-
-
