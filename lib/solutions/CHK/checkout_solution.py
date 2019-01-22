@@ -87,6 +87,12 @@ def get_cost(prices, item, quantity):
     return quantity * prices[item]
 
 
+def get_requirements(groups):
+    """
+    Returns requirements
+    """
+
+
 def calculate_saving(deal, item_prices):
     """
     Parse the deal string and calculate how much money is saved
@@ -103,7 +109,7 @@ def calculate_saving(deal, item_prices):
     if free_re:
         # saving is value of free item
         saving = item_prices[free_re.group(2)]
-        requirements = list(free_re.groups())
+        requirements = get_requirements(free_re.groups())
         quantity, item = parse_deal_code(free_re.group(1))
         cost = get_cost(item_prices, item, quantity)
     else:
