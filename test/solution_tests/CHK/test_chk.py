@@ -11,11 +11,11 @@ class TestLoadPrices(unittest.TestCase):
 
 class TestParseSKU(unittest.TestCase):
     def test_parse_sku(self):
-        self.assertEqual(checkout_solution.parse_skew("A"), (1, "A"))
-        self.assertEqual(checkout_solution.parse_skew("3A"), (3, "A"))
+        self.assertEqual(checkout_solution.parse_sku("A"), (1, "A"))
+        self.assertEqual(checkout_solution.parse_sku("3A"), (3, "A"))
 
     def test_parse_sku_invalid_fmt(self):
-        self.assertEqual(checkout_solution.parse_skew("3A3"), (None, None))
+        self.assertEqual(checkout_solution.parse_sku("3A3"), (None, None))
 
 
 class TestCheckout(unittest.TestCase):
@@ -24,7 +24,3 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("B"), 30)
         self.assertEqual(checkout_solution.checkout("C"), 20)
         self.assertEqual(checkout_solution.checkout("D"), 15)
-
-
-
-

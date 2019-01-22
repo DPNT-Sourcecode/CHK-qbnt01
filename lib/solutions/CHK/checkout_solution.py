@@ -32,6 +32,7 @@ def parse_sku(sku):
     """
     # separate numbers and letters
     result = re.split('(\d+)', sku)
+    print result
     if len(result) == 1:
         # if quantity not specified, default to 1
         quantity = 1
@@ -68,12 +69,3 @@ def checkout(skus):
             total_cost += prices[sku]["price"]
 
     return total_cost
-
-
-
-
-
-
-
-
-
