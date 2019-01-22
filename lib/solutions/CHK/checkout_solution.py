@@ -180,21 +180,15 @@ def checkout(skus):
     """
     if not skus:
         return 0
-    print "skus", skus
 
     total_cost = 0
     item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
-    print "ordered_deals", ordered_deals
 
     for (deal, requirements, saving, deal_cost) in ordered_deals:
-        print "deal: ", deal
-        print "requirements", requirements
-        print "items_counter", items_counter
         reqs_counter = requirements_satisfied(items_counter, requirements)
-        print "reqs_counter", reqs_counter
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
@@ -204,6 +198,8 @@ def checkout(skus):
             total_cost += deal_cost
             # subtract items from basket
             items_counter -= reqs_counter
+            
+            # recalculate for next loop iteration
             reqs_counter = requirements_satisfied(items_counter, requirements)
 
     # for any remaining items, just add cost
@@ -220,3 +216,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
