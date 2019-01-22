@@ -5,18 +5,21 @@ import re
 
 def load_prices():
     """
-    Returns dict of information in prices.csv
+    Returns:
+        prices (dict): price information in prices.csv
     Format: {SKU : {"price": price, "deals": deals}}
     Where `deals` is a comma separated string of different deals and
     can be null.
     """
+    prices = {}
+    deals = {}
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         prices = {
-            row[0]: {"price": int(row[1]), "deals": row[2]}
+            row[0]: int(row[1])
             for row in csv_reader
         }
-    return prices
+    return prices, deals
 
 
 def parse_deal_code(deal_code):
@@ -122,4 +125,5 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
