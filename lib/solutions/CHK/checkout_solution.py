@@ -96,10 +96,3 @@ def checkout(skus):
 #            total_cost += prices[item]["price"]
 
     return total_cost
-
-
-
-
-
-
-
