@@ -54,7 +54,7 @@ def get_deal_info(deal):
     """
     deal_quantity, deal_price = deal.split(' for ')
     quantity = re.findall('\d+', deal_quantity)
-    if len(quantity) != 1:
+    if not deal_price.isdigit() or len(quantity) != 1:
         # invalid format for deal
         return None, None
 
@@ -112,6 +112,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
