@@ -91,8 +91,10 @@ class TestCheckout(unittest.TestCase):
 class TestEvaluateDeals(unittest.TestCase):
     def test_choose_optimal_deal(self):
         ordered_deals = [
-            ()
+            ("3B for 69", ["3B"], 31, 59),
+            ("2E get one B free", ["2E", "B"], 30, 80),
         ]
         
+
 
 
