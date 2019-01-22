@@ -1,3 +1,4 @@
+from collections import Counter
 import csv
 import re
 
@@ -105,6 +106,7 @@ def checkout(skus):
 
     total_cost = 0
     prices = load_prices()
+    items = Counter(skus)
     for sku in skus.split(","):
         quantity, item = parse_sku(sku)
         if None in (item, quantity) or item not in prices:
@@ -119,10 +121,3 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
-
-
-
-
-
-
-

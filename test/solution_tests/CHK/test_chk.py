@@ -63,9 +63,3 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("4A,3B,C"), 180 + 75 + 20)
-
-
-
-
-
-
