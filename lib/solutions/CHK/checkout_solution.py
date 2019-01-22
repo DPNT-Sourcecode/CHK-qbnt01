@@ -60,12 +60,14 @@ def checkout(skus):
     total_cost = 0
     prices = load_prices()
     for sku in skus.split(","):
-        item, quantity = parse_sku(sku)
+        quantity, item = parse_sku(sku)
         if None in (item, quantity) or item not in prices:
             # invalid input
             return -1
         else:
-            total_cost += prices[sku]["price"]
+            total_cost += get_cost()
+#            total_cost += prices[item]["price"]
 
     return total_cost
+
 
