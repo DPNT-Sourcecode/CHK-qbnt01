@@ -106,8 +106,12 @@ def calculate_saving(deal, item_prices):
     Parse the deal string and calculate how much money is saved
     when this deal gets applied.
     """
-    if re.search(r'\w+ get one ([^\n]+) free', deal):
-
+    free_re = re.search(r'\w+ get one ([^\n]+) free', deal)
+    if free_re:
+        # saving is value of free item
+        return item_prices[free_re.group(1)]
+    else:
+        # assuming for now that all other deals are just x-for
     return 0
 
 
@@ -166,5 +170,6 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
