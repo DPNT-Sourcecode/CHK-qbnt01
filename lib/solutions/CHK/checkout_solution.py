@@ -151,15 +151,23 @@ def get_ordered_deals(item_prices, item_deals):
 def requirements_satisfied(items_counter, requirements):
     """
     Checks if items in requirements are present in basket (items_counter)
+    Args:
+        items_counter (collections.Counter): items in basket
+            with number of occurrences
+        requirements
     """
     for r in requirements:
         quantity, item = parse_deal_code(r)
         if (
             None in (quantity, item)
             or item not in items_counter
-            or 
-            :
+            or items_counter[item] < quantity
+        ):
+            # requirements for this deal not satisfied
             return False
+
+    # if all requirements satisfied then return True
+    return True
 
         
 
@@ -203,6 +211,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
