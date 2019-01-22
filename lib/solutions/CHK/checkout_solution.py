@@ -100,6 +100,8 @@ def checkout(skus):
     Returns:
         Integer representing the total checkout value of the items
     """
+    if not skus:
+        return 0
 
     total_cost = 0
     prices = load_prices()
@@ -117,6 +119,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 

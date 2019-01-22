@@ -41,6 +41,9 @@ class TestDealInfo(unittest.TestCase):
 
 
 class TestCheckout(unittest.TestCase):
+    def test_checkout_empty(self):
+        self.assertEqual(checkout_solution.checkout(""), 0)
+
     def test_checkout_simple(self):
         self.assertEqual(checkout_solution.checkout("A"), 50)
         self.assertEqual(checkout_solution.checkout("B"), 30)
@@ -60,6 +63,7 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("4A,3B,C"), 180 + 75 + 20)
+
 
 
 
