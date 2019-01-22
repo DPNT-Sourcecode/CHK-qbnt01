@@ -10,11 +10,10 @@ def load_prices():
     """
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        prices = [row for row ini csv_reader]
-    
+        prices = [row for row in csv_reader]
+
     return prices
-        
-    
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -27,3 +26,4 @@ def checkout(skus):
         Integer representing the total checkout value of the items 
     """
     
+
