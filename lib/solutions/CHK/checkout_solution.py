@@ -107,8 +107,8 @@ def checkout(skus):
     total_cost = 0
     prices = load_prices()
     items = Counter(skus)
-    for sku in skus.split(","):
-        quantity, item = parse_sku(sku)
+    for item, quantity in items.iteritems():
+#        quantity, item = parse_sku(sku)
         if None in (item, quantity) or item not in prices:
             # invalid input
             return -1
@@ -121,3 +121,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
