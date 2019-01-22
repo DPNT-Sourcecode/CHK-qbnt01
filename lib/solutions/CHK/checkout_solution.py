@@ -54,8 +54,11 @@ def get_deal_info(deal):
     """
     deal_quantity, deal_price = deal.split(' for ')
     quantity = re.findall('\d+', deal_quantity)
+    if len(quantity) != 1:
+        # invalid format for deal
+        return None, None
 
-    return int(quantity), int(deal_price)
+    return int(quantity[0]), int(deal_price)
 
 
 def get_cost(prices, item, quantity):
@@ -69,6 +72,7 @@ def get_cost(prices, item, quantity):
     item_price = prices[item]
     if item_price["deal"]:
         deal_quantity, deal_price = get_deal_info(item_price["deal"])
+        
         # apply deal as many times as possible
         num_deals, remainder = divmod(quantity, deal_quantity)
         cost = (num_deals * deal_price) + (remainder * item_price["price"])
@@ -98,7 +102,7 @@ def checkout(skus):
             return -1
         else:
             total_cost += get_cost(prices, item, quantity)
-#            total_cost += prices[item]["price"]
 
     return total_cost
+
 
