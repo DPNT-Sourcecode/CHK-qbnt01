@@ -50,10 +50,8 @@ def get_deal_info(deal):
     """
     Returns quantity and price of deal from description
     Args:
-        deal nullable[(str)]: description of deal, eg. "2B for 45"
+        deal (str): description of deal, eg. "2B for 45"
     """
-    if not deal:
-        return None
     deal_quantity, deal_price = deal.split(' for ')
     quantity = re.findall('\d+', deal_quantity)
 
@@ -69,8 +67,9 @@ def get_cost(prices, item, quantity):
         quantity (int): quantity of item in basket
     """
     item_price = prices[item]
-    deal_info = get_deal_info(item_price["deal"])
-    if item_price["deal"] and \
+    if item_price["deal"]:
+        deal_quantity, deal_price = get_deal_info(item_price["deal"])
+        
         quantity >= (item_price["deal"]):
 
 
@@ -97,6 +96,7 @@ def checkout(skus):
 #            total_cost += prices[item]["price"]
 
     return total_cost
+
 
 
 
