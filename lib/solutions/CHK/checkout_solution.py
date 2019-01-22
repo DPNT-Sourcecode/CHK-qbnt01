@@ -156,8 +156,10 @@ def requirements_satisfied(items_counter, requirements):
             with number of occurrences
         requirements (list): list of requirements for this deal eg. ['2E', 'B']
     Returns:
-        (collections.Counter)
+        nullable(collections.Counter): Counter showing how many of each item
+        this deal uses. Returns None if the deal requirements are not met.
     """
+    c = Counter()
     for r in requirements:
         quantity, item = parse_deal_code(r)
         if (
@@ -166,7 +168,9 @@ def requirements_satisfied(items_counter, requirements):
             or items_counter[item] < quantity
         ):
             # requirements for this deal not satisfied
-            return False
+            return None
+            
+        c.update({item: quantity})
 
     # if all requirements satisfied then return True
     return True
@@ -213,6 +217,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
