@@ -114,16 +114,20 @@ def get_ordered_deals(item_prices, item_deals):
     apply best deals first.
     Args:
         item_prices (dict): {item: price}
-        
+        item_deals (dict): {item: [deal1, deal2, etc.]}
+    Returns:
+        ordered_deals (list(tuple)): 
+            [(deal_x, saving_x), (deal_y, saving_y), ..]
     """
     deals_seen = set([])
     deal_savings = []
-    for _, deal in item_deals.iteritems():
-        if deal in deals_seen:
-            continue
+    for _, deals in item_deals.iteritems():
+        for deal in deals:
+            if deal in deals_seen:
+                continue
 
-        saving = calculate_saving(deal, item_prices)
-        deal_savings.append((deal, saving))
+            saving = calculate_saving(deal, item_prices)
+            deal_savings.append((deal, saving))
 
     # sort by saving
     ordered_deals = deal_savings.sort(key=operator.itemgetter(1))
@@ -162,4 +166,5 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
