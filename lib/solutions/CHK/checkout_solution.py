@@ -154,7 +154,9 @@ def requirements_satisfied(items_counter, requirements):
     Args:
         items_counter (collections.Counter): items in basket
             with number of occurrences
-        requirements
+        requirements (list): list of requirements for this deal eg. ['2E', 'B']
+    Returns:
+        (collections.Counter)
     """
     for r in requirements:
         quantity, item = parse_deal_code(r)
@@ -211,6 +213,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
