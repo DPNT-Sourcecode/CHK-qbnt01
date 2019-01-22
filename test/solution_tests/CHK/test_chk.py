@@ -7,7 +7,7 @@ class TestLoadPrices(unittest.TestCase):
     def test_load_prices(self):
         prices, deals = checkout_solution.load_prices()
         self.assertEqual(len(prices), 5)
-        self.assertEqual(len(deals), )
+        self.assertEqual(len(deals), 3)
 
 
 class TestParseDealCode(unittest.TestCase):
@@ -19,6 +19,15 @@ class TestParseDealCode(unittest.TestCase):
         self.assertEqual(checkout_solution.parse_deal_code(
             "3A3"), (None, None)
         )
+
+
+class TestCalculateSaving(unittest.TestCase):
+    def test_calc_saving(self):
+        item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
+        item_deals = set(['2E get one B free', '2B for 45',
+            '5A for 200', '3A for 130'])
+            
+        checkout_solution.calculate_saving()
 
 
 class TestDealInfo(unittest.TestCase):
@@ -70,3 +79,4 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
+

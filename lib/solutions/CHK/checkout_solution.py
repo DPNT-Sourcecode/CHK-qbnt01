@@ -17,7 +17,7 @@ def load_prices():
         csv_reader = csv.reader(csv_file, delimiter=';')
         for (item, price, deals) in csv_reader:
             item_prices[item] = int(price)
-            for deal in deals.split(','):
+            for deal in deals.split(', '):
                 if deal:
                     item_deals.add(deal)
 
@@ -165,6 +165,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
