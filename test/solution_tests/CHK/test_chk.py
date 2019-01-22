@@ -7,8 +7,8 @@ from solutions.CHK import checkout_solution
 class TestLoadPrices(unittest.TestCase):
     def test_load_prices(self):
         prices, deals = checkout_solution.load_prices()
-        self.assertEqual(len(prices), 6)
-        self.assertEqual(len(deals), 5)
+        self.assertEqual(len(prices), 26)
+        self.assertEqual(len(deals), 15)
 
 
 class TestParseDealCode(unittest.TestCase):
@@ -127,6 +127,9 @@ class TestCheckout(unittest.TestCase):
     def test_get_one_free_same_item(self):
         self.assertEqual(checkout_solution.checkout("FFF"), 20)
 
+    def test_advanced_selection(self):
+        self.as
+
 # Cannot use mock in online IDE... but I would test that this scenario doesn't apply the deal
 #    def test_get_one_free_same_item_not_satisfied(self):
 #        mocked = mock.MagicMock()
@@ -148,3 +151,4 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
