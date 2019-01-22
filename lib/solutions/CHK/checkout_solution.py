@@ -168,7 +168,7 @@ def requirements_satisfied(items_counter, requirements):
         requirements (collections.Counter):  items and quantity required to complete deal
             eg. {'F': 3}
     Returns:
-        (bool) are requirements
+        (bool) are requirements for this deal met
     """
     for item, quantity in requirements.iteritems():
         if (
@@ -177,13 +177,10 @@ def requirements_satisfied(items_counter, requirements):
             or items_counter[item] < quantity
         ):
             # requirements for this deal not satisfied
-            return None
-
-        # if item is already in c then this will sum the values
-        c.update({item: quantity})
+            return False
 
     # if all requirements satisfied then return True
-    return c
+    return True
 
 
 def evaluate_deals(items_counter, ordered_deals):
@@ -200,19 +197,22 @@ def evaluate_deals(items_counter, ordered_deals):
     """
     total_cost = 0
     for (deal, requirements, saving, deal_cost) in ordered_deals:
-        reqs_counter = requirements_satisfied(items_counter, requirements)
+        print requirements
+        reqs_satisfied = requirements_satisfied(items_counter, requirements)
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
         # loop in order to apply deal as many times as is valid
-        while reqs_counter is not None and ctr > 0:
+        while reqs_satisfied is not None and ctr > 0:
+            print items_counter
             ctr -= 1
             total_cost += deal_cost
             # subtract items from basket
-            items_counter -= reqs_counter
-            
+            items_counter -= requirements
+
             # recalculate for next loop iteration
-            reqs_counter = requirements_satisfied(items_counter, requirements)
+            reqs_satisfied = requirements_satisfied(
+                items_counter, requirements)
 
     return total_cost, items_counter
 
@@ -253,5 +253,6 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
