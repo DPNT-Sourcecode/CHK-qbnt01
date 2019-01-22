@@ -1,5 +1,5 @@
 import csv
-
+import re
 
 
 def load_prices():
@@ -19,8 +19,18 @@ def load_prices():
 
 def parse_sku(sku)
     """
-    Converts an sku and it's quantity into
+    Converts an sku and it's quantity into separate parts.
+    eg.
+    A -> 1, A
+    3A -> 3, A
+    Args:
+        sku (string) - contains sku item and an optional quantity
+                        (defaults to 1)
+    Returns:
+        int - quantity of item
+        str - item sku code
     """
+    
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -44,6 +54,7 @@ def checkout(skus):
             total_cost += prices[sku]["price"]
 
     return total_cost
+
 
 
 
