@@ -197,14 +197,12 @@ def evaluate_deals(items_counter, ordered_deals):
     """
     total_cost = 0
     for (deal, requirements, saving, deal_cost) in ordered_deals:
-        print requirements
         reqs_satisfied = requirements_satisfied(items_counter, requirements)
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
         # loop in order to apply deal as many times as is valid
-        while reqs_satisfied is not None and ctr > 0:
-            print items_counter
+        while reqs_satisfied and ctr > 0:
             ctr -= 1
             total_cost += deal_cost
             # subtract items from basket
@@ -253,6 +251,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
