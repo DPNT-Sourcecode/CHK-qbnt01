@@ -168,6 +168,29 @@ def requirements_satisfied(items_counter, requirements):
     return c
 
 
+def evaluate_deals(items_counter, ordered_deals):
+    """
+    Iterates through deals (best deals first) and applies as many
+    as possible to customer basket.
+    Args:
+        items_counter
+    """
+
+    for (deal, requirements, saving, deal_cost) in ordered_deals:
+        reqs_counter = requirements_satisfied(items_counter, requirements)
+        # sanity check to avoid infinite loop. Assuming someone can't
+        # apply a deal more than ctr times
+        ctr = 10
+        # loop in order to apply deal as many times as is valid
+        while reqs_counter is not None and ctr > 0:
+            ctr -= 1
+            total_cost += deal_cost
+            # subtract items from basket
+            items_counter -= reqs_counter
+            
+            # recalculate for next loop iteration
+            reqs_counter = requirements_satisfied(items_counter, requirements)
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -186,21 +209,8 @@ def checkout(skus):
     items_counter = Counter(skus)
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
-
-    for (deal, requirements, saving, deal_cost) in ordered_deals:
-        reqs_counter = requirements_satisfied(items_counter, requirements)
-        # sanity check to avoid infinite loop. Assuming someone can't
-        # apply a deal more than ctr times
-        ctr = 10
-        # loop in order to apply deal as many times as is valid
-        while reqs_counter is not None and ctr > 0:
-            ctr -= 1
-            total_cost += deal_cost
-            # subtract items from basket
-            items_counter -= reqs_counter
-            
-            # recalculate for next loop iteration
-            reqs_counter = requirements_satisfied(items_counter, requirements)
+    
+    total_cost += evaluate_deals(items_counter, ordered_deals)
 
     # for any remaining items, just add cost
     for item, quantity in items_counter.iteritems():
@@ -216,4 +226,5 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
