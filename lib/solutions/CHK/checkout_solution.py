@@ -31,11 +31,18 @@ def parse_sku(sku)
         str - item sku code
     """
     # separate numbers and letters
-    result = re.split('(\d+)',sku)
+    result = re.split('(\d+)', sku)
     if len(result) == 1:
         # if quantity not specified, default to 1
-        
-    return int(quantity), item
+        quantity = 1
+        item = result[0]
+    elif len(result) != 2:
+        return None, None
+    else:
+        quantity = int(result[0])
+        item = result[1]
+
+    return quantity, item
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -59,6 +66,7 @@ def checkout(skus):
             total_cost += prices[sku]["price"]
 
     return total_cost
+
 
 
 
