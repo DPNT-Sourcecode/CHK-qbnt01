@@ -89,6 +89,8 @@ class TestCheckout(unittest.TestCase):
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
 
+    def test_get_one_free(self)
+
 # ignore this issue for now, will try to solve later
 #class TestEvaluateDeals(unittest.TestCase):
 #    def test_choose_optimal_deal(self):
@@ -103,4 +105,5 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
 

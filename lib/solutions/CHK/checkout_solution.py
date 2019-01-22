@@ -89,7 +89,13 @@ def get_cost(prices, item, quantity):
 
 def get_requirements(groups):
     """
-    Returns requirements
+    Returns requirements for deal from multiple groups.
+    If the groups contain the same item then they should be combined.
+    eg. 2F, F should become 3F
+    Args:
+        groups
+    Returns:
+        list(str): what is needed to complete the deal eg. [2E, B]
     """
 
 
@@ -241,3 +247,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
