@@ -15,11 +15,11 @@ def load_prices():
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for (item, price, deals) in csv_reader:
-            prices[item] = int(price)
+            item_prices[item] = int(price)
             if deals:
-                deals[item] = item_deals
+                item_deals[item] = deals
 
-    return prices, deals
+    return item_prices, item_deals
 
 
 def parse_deal_code(deal_code):
@@ -99,6 +99,12 @@ def get_cost(prices, item, quantity):
     return cost
 
 
+def get_ordered_deals(item_prices, item_deals):
+    """
+    Returns a list of deals in order of saving, 
+    """
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -113,10 +119,10 @@ def checkout(skus):
         return 0
 
     total_cost = 0
-    prices, item_deals = load_prices()
+    item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
     
-    # 
+    ordered_deals = get_ordered_deals(item_prices, item_deals)
     
     for item, quantity in items.iteritems():
         if None in (item, quantity) or item not in prices:
@@ -131,6 +137,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
