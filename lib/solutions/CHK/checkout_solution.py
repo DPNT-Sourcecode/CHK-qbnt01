@@ -199,12 +199,16 @@ def checkout(skus):
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
     print "ordered_deals", ordered_deals
-    
+
     for (deal, requirements, saving) in ordered_deals:
         reqs_counter = requirements_satisfied(items_counter, requirements)
+        # sanity check to avoid infinite loop. Assuming someone can't
+        # apply a deal more than ctr times
+        ctr = 10
+        while reqs_counter is not None and ctr > 0:
         if reqs_counter:
             # apply deal as many times as possible
-            pass
+            
 
 #    for item, quantity in items_counter.iteritems():
 #        if None in (item, quantity) or item not in item_prices:
@@ -219,3 +223,4 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
