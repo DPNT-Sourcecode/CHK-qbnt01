@@ -80,6 +80,22 @@ class TestDealInfo(unittest.TestCase):
         self.assertEqual(deal_price, None)
 
 
+class TestRequirementsSatisfied(unittest.TestCase):
+    def test_requirements_satisfied(self):
+        items_counter = Counter({'A': 4})
+        requirements = Counter({'A': 3})
+        res = checkout_solution.requirements_satisfied(
+            items_counter, requirements)
+        self.assertEqual(res, True)
+
+    def test_requirements_satisfied(self):
+        items_counter = Counter({'A': 4})
+        requirements = Counter({'A': 3})
+        res = checkout_solution.requirements_satisfied(
+            items_counter, requirements)
+        self.assertEqual(res, True)
+
+
 class TestCheckout(unittest.TestCase):
     def test_checkout_empty(self):
         self.assertEqual(checkout_solution.checkout(""), 0)
@@ -126,5 +142,6 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
 
 
