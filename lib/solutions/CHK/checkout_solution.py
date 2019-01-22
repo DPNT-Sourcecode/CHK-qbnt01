@@ -1,4 +1,8 @@
-
+def load_prices():
+    """
+    Returns list of tuples of information in prices.csv
+    Format:
+        [(SKU, price, deal)]
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -11,4 +15,5 @@ def checkout(skus):
         Integer representing the total checkout value of the items 
     """
     
+
 
