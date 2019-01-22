@@ -6,13 +6,14 @@ import re
 def load_prices():
     """
     Returns dict of information in prices.csv
-    Format: {SKU : {"price": price, "deal": deal}}
-    Where `deal` can be null
+    Format: {SKU : {"price": price, "deals": deals}}
+    Where `deals` is a comma separated string of different deals and
+    can be null.
     """
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         prices = {
-            row[0]: {"price": int(row[1]), "deal": row[2]}
+            row[0]: {"price": int(row[1]), "deals": row[2]}
             for row in csv_reader
         }
     return prices
@@ -71,13 +72,14 @@ def get_cost(prices, item, quantity):
     """
     Calculates cost of item based on quantity, including any deals
     Args:
-        prices (dict): {item_code: {"price": price, "deal": deal}}
+        prices (dict): {item_code: {"price": price, "deals": deal}}
         item (str): item_code
         quantity (int): quantity of item in basket
     """
     item_price = prices[item]
-    if item_price["deal"]:
-        deal_quantity, deal_price = get_deal_info(item_price["deal"], item)
+    if item_price["deals"]:
+        
+        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
         if None in (deal_quantity, deal_price):
             # invalid deal format
             return None
@@ -120,3 +122,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
