@@ -215,6 +215,26 @@ def evaluate_deals(items_counter, ordered_deals):
     return total_cost, items_counter
 
 
+def evaluate_remaining_items(items_counter, item_prices):
+    """
+    Gets cost of items not in deals
+    """
+    total_cost = 0
+    # for any remaining items, just add cost
+    for item, quantity in items_counter.iteritems():
+        if None in (item, quantity) or item not in item_prices:
+            # invalid input
+            return -1
+        else:
+            item_cost = get_cost(item_prices, item, quantity)
+            if item_cost is None:
+                # invalid input
+                return -1
+            else:
+                total_cost += item_cost
+
+    return total_cost
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -238,22 +258,12 @@ def checkout(skus):
     total_cost += deals_cost
     
     remaining_cost, items_counter = evaluate_remaining_items(
+        items_counter, item_prices
     )
-
-    # for any remaining items, just add cost
-    for item, quantity in items_counter.iteritems():
-        if None in (item, quantity) or item not in item_prices:
-            # invalid input
-            return -1
-        else:
-            item_cost = get_cost(item_prices, item, quantity)
-            if item_cost is None:
-                # invalid input
-                return -1
-            else:
-                total_cost += item_cost
+    total_cost += remaining_cost
 
     return total_cost
+
 
 
 
