@@ -76,29 +76,29 @@ def get_deal_info(deal, item):
     return int(deal_quantity), int(deal_price)
 
 
-#def get_cost(prices, item, quantity):
-#    """
-#    Calculates cost of item based on quantity, including any deals
-#    Args:
-#        prices (dict): {item_code: {"price": price, "deals": deal}}
-#        item (str): item_code
-#        quantity (int): quantity of item in basket
-#    """
-#    item_price = prices[item]
-#    if item_price["deals"]:
-#        
-#        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
-#        if None in (deal_quantity, deal_price):
-#            # invalid deal format
-#            return None
-#
-#        # apply deal as many times as possible
-#        num_deals, remainder = divmod(quantity, deal_quantity)
-#        cost = (num_deals * deal_price) + (remainder * item_price["price"])
-#    else:
-#        cost = quantity * item_price["price"]
-#
-#    return cost
+def get_cost(prices, item, quantity):
+    """
+    Calculates cost of item based on quantity
+    Args:
+        prices (dict): {item_code: price}
+        item (str): item_code
+        quantity (int): quantity of item in basket
+    """
+    item_price = prices[item]
+    if item_price["deals"]:
+        
+        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
+        if None in (deal_quantity, deal_price):
+            # invalid deal format
+            return None
+
+        # apply deal as many times as possible
+        num_deals, remainder = divmod(quantity, deal_quantity)
+        cost = (num_deals * deal_price) + (remainder * item_price["price"])
+    else:
+        cost = quantity * item_price["price"]
+
+    return cost
 
 
 def calculate_saving(deal, item_prices):
@@ -118,8 +118,9 @@ def calculate_saving(deal, item_prices):
         # saving is value of free item
         saving = item_prices[free_re.group(2)]
         requirements = list(free_re.groups())
-        cost = 
-        return requirements, saving
+        quantity, item = parse_deal_code(free_re.groups(1))
+        cost = get_cost(item_prices, item, quantity)
+        return requirements, saving, cost
     else:
         # assuming for now that all other deals are just x-for
         # saving is difference between deal price and quantity * base price
@@ -228,5 +229,6 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
