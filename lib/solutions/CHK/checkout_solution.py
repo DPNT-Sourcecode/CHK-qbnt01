@@ -101,8 +101,12 @@ def get_cost(prices, item, quantity):
 
 def get_ordered_deals(item_prices, item_deals):
     """
-    Returns a list of deals in order of saving, 
+    Returns a list of deals in order of saving, so we can 
+    apply best deals first.
     """
+    ordered_deals = set([])
+    for _, deal in item_deals.iteritems():
+        
 
 
 # noinspection PyUnusedLocal
@@ -137,6 +141,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
