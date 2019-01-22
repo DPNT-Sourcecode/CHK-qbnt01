@@ -46,6 +46,16 @@ def parse_sku(sku):
     return quantity, item
 
 
+def get_cost(prices, item, quantity):
+    """
+    Calculates cost of item based on quantity, including any deals
+    Args:
+        prices (dict): {item_code: {"price": price, "deal": deal}}
+        item (str): item_code
+        quantity (int): quantity of item in basket
+    """
+    
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -65,9 +75,10 @@ def checkout(skus):
             # invalid input
             return -1
         else:
-            total_cost += get_cost()
+            total_cost += get_cost(prices, item, quantity)
 #            total_cost += prices[item]["price"]
 
     return total_cost
+
 
 
