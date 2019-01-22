@@ -38,6 +38,8 @@ def parse_deal_code(deal_code):
         str - item sku code
     """
     # separate numbers and letters
+    print deal_code
+    print 
     result = re.findall('\d+|\D+', deal_code)
     if len(result) == 1:
         # if quantity not specified, default to 1
@@ -193,28 +195,28 @@ def checkout(skus):
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
+        # loop in order to apply deal as many times as is valid
         while reqs_counter is not None and ctr > 0:
             ctr += 1
             total_cost += deal_cost
+            # subtract items from basket
             items_counter -= reqs_counter
-            
-        if reqs_counter:
-            # apply deal as many times as possible
-            
 
-#    for item, quantity in items_counter.iteritems():
-#        if None in (item, quantity) or item not in item_prices:
-#            # invalid input
-#            return -1
-#        else:
-#            item_cost = get_cost(item_prices, item, quantity)
-#            if item_cost is None:
-#                # invalid input
-#                return -1
-#            else:
-#                total_cost += item_cost
+    # for any remaining items, just add cost
+    for item, quantity in items_counter.iteritems():
+        if None in (item, quantity) or item not in item_prices:
+            # invalid input
+            return -1
+        else:
+            item_cost = get_cost(item_prices, item, quantity)
+            if item_cost is None:
+                # invalid input
+                return -1
+            else:
+                total_cost += item_cost
 
     return total_cost
+
 
 
 
