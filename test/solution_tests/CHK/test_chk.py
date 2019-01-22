@@ -82,18 +82,18 @@ class TestDealInfo(unittest.TestCase):
 
 class TestRequirementsSatisfied(unittest.TestCase):
     def test_requirements_satisfied(self):
-        items_counter = Counter({'A': 4})
+        items_counter = Counter({'A': 3})
         requirements = Counter({'A': 3})
         res = checkout_solution.requirements_satisfied(
             items_counter, requirements)
         self.assertEqual(res, True)
 
-    def test_requirements_satisfied(self):
-        items_counter = Counter({'A': 4})
+    def test_requirements_not_satisfied(self):
+        items_counter = Counter({'A': 2})
         requirements = Counter({'A': 3})
         res = checkout_solution.requirements_satisfied(
             items_counter, requirements)
-        self.assertEqual(res, True)
+        self.assertEqual(res, False)
 
 
 class TestCheckout(unittest.TestCase):
@@ -125,8 +125,11 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("EEB"), 80)
 
     def test_get_one_free_same_item(self):
-        self.assertEqual(checkout_solution.checkout("FF"), 20)
         self.assertEqual(checkout_solution.checkout("FFF"), 20)
+
+    def test_get_one_free_same_item_not_satisfied(self):
+        with 
+        self.assertEqual(checkout_solution.checkout("FF"), 20)
 
 # ignore this issue for now, will try to solve later
 #class TestEvaluateDeals(unittest.TestCase):
@@ -142,6 +145,7 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
 
 
 

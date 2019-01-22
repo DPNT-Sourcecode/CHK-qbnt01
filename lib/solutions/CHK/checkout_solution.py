@@ -236,6 +236,9 @@ def checkout(skus):
 
     deals_cost, items_counter = evaluate_deals(items_counter, ordered_deals)
     total_cost += deals_cost
+    
+    remaining_cost, items_counter = evaluate_remaining_items(
+    )
 
     # for any remaining items, just add cost
     for item, quantity in items_counter.iteritems():
@@ -251,6 +254,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
