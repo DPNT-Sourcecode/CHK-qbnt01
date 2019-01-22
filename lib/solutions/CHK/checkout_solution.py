@@ -69,8 +69,13 @@ def get_cost(prices, item, quantity):
     item_price = prices[item]
     if item_price["deal"]:
         deal_quantity, deal_price = get_deal_info(item_price["deal"])
-        
-        quantity >= (item_price["deal"]):
+        # apply deal as many times as possible
+        num_deals, remainder = divmod(quantity, deal_quantity)
+        cost = (num_deals * deal_price) + (remainder * item_price["price"])
+    else:
+        cost = quantity * item_price["price"]
+
+    return cost
 
 
 # noinspection PyUnusedLocal
@@ -96,3 +101,4 @@ def checkout(skus):
 #            total_cost += prices[item]["price"]
 
     return total_cost
+
