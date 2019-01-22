@@ -18,7 +18,11 @@ def load_prices():
         for (item, price, deals) in csv_reader:
             item_prices[item] = int(price)
             if deals:
-                item_deals[item] = deals
+                if item not in item_deals:
+                    item_deals[item] = set([])
+
+                for deal in deals.split(','):
+                    item_deals[item].add(deal)
 
     return item_prices, item_deals
 
@@ -155,18 +159,19 @@ def checkout(skus):
     print "item_deals", item_deals
     ordered_deals = get_ordered_deals(item_prices, item_deals)
 
-    for item, quantity in items_counter.iteritems():
-        if None in (item, quantity) or item not in item_prices:
-            # invalid input
-            return -1
-        else:
-            item_cost = get_cost(item_prices, item, quantity)
-            if item_cost is None:
-                # invalid input
-                return -1
-            else:
-                total_cost += item_cost
+#    for item, quantity in items_counter.iteritems():
+#        if None in (item, quantity) or item not in item_prices:
+#            # invalid input
+#            return -1
+#        else:
+#            item_cost = get_cost(item_prices, item, quantity)
+#            if item_cost is None:
+#                # invalid input
+#                return -1
+#            else:
+#                total_cost += item_cost
 
     return total_cost
+
 
 
