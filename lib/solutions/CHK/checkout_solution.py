@@ -4,13 +4,13 @@ import csv
 
 def load_prices():
     """
-    Returns list of tuples of information in prices.csv
-    Format: [(SKU, price, deal)]
+    Returns dict of information in prices.csv
+    Format: {SKU : {"price": price, "deal": deal}}
     Where `deal` can be null
     """
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        prices = [row for row in csv_reader]
+        prices = {row[0] : {"price": row[1], "deal": row[2]} for row in csv_reader}
 
     return prices
 
@@ -25,5 +25,8 @@ def checkout(skus):
     Returns:
         Integer representing the total checkout value of the items 
     """
+    prices = load_prices()
+    for sku in skus.split(",")
     
+
 
