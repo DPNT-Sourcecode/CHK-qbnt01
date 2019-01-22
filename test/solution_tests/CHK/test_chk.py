@@ -127,7 +127,7 @@ class TestCheckout(unittest.TestCase):
     def test_get_one_free_same_item(self):
         self.assertEqual(checkout_solution.checkout("FFF"), 20)
 
-# Cannot use mock in online IDE... but I would test that this scenario doesn't apply the 
+# Cannot use mock in online IDE... but I would test that this scenario doesn't apply the deal
 #    def test_get_one_free_same_item_not_satisfied(self):
 #        mocked = mock.MagicMock()
 #        with mock.patch('checkout_solution.evaluate_remaining_items', mocked):
@@ -148,9 +148,3 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
-
-
-
-
-
-
