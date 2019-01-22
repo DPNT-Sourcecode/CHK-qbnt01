@@ -150,10 +150,12 @@ def checkout(skus):
     total_cost = 0
     item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
-    
+
+    print "item_prices", item_prices
+    print "item_deals", item_deals
     ordered_deals = get_ordered_deals(item_prices, item_deals)
-    
-    for item, quantity in items.iteritems():
+
+    for item, quantity in items_counter.iteritems():
         if None in (item, quantity) or item not in prices:
             # invalid input
             return -1
