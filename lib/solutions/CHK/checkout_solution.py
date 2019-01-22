@@ -235,8 +235,3 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
-
-
-
-
-
