@@ -18,21 +18,21 @@ def load_prices():
     return prices
 
 
-def parse_sku(sku):
+def parse_deal_code(deal_code):
     """
     Converts an sku and it's quantity into separate parts.
     eg.
     A -> 1, A
     3A -> 3, A
     Args:
-        sku (string) - contains sku item and an optional quantity
+        deal_code (string) - contains sku item and an optional quantity
                         (defaults to 1)
     Returns:
         int - quantity of item
         str - item sku code
     """
     # separate numbers and letters
-    result = re.findall('\d+|\D+', sku)
+    result = re.findall('\d+|\D+', deal_code)
     if len(result) == 1:
         # if quantity not specified, default to 1
         quantity = 1
@@ -55,7 +55,7 @@ def get_deal_info(deal, item):
         item (str): sku code for item we are expecting deal for
     """
     deal_code_quantity, deal_price = deal.split(' for ')
-    deal_quantity, deal_item = parse_sku(deal_code_quantity)
+    deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
     if (
         not deal_price.isdigit() or
         None in (deal_quantity, deal_item) or
@@ -108,7 +108,6 @@ def checkout(skus):
     prices = load_prices()
     items = Counter(skus)
     for item, quantity in items.iteritems():
-#        quantity, item = parse_sku(sku)
         if None in (item, quantity) or item not in prices:
             # invalid input
             return -1
@@ -121,4 +120,5 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 

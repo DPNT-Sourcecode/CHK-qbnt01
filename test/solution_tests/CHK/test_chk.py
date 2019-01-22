@@ -9,13 +9,15 @@ class TestLoadPrices(unittest.TestCase):
         self.assertEqual(len(prices), 4)
 
 
-class TestParseSKU(unittest.TestCase):
-    def test_parse_sku(self):
-        self.assertEqual(checkout_solution.parse_sku("A"), (1, "A"))
-        self.assertEqual(checkout_solution.parse_sku("3A"), (3, "A"))
+class TestParseDealCode(unittest.TestCase):
+    def test_parse_deal_code(self):
+        self.assertEqual(checkout_solution.parse_deal_code("A"), (1, "A"))
+        self.assertEqual(checkout_solution.parse_deal_code("3A"), (3, "A"))
 
-    def test_parse_sku_invalid_fmt(self):
-        self.assertEqual(checkout_solution.parse_sku("3A3"), (None, None))
+    def test_parse_deal_code_invalid_fmt(self):
+        self.assertEqual(checkout_solution.parse_deal_code(
+            "3A3"), (None, None)
+        )
 
 
 class TestDealInfo(unittest.TestCase):
@@ -30,12 +32,16 @@ class TestDealInfo(unittest.TestCase):
         self.assertEqual(deal_price, 25)
         
     def test_get_deal_info_wrong_item(self):
-        deal_quantity, deal_price = checkout_solution.get_deal_info("A for 25", "B")
+        deal_quantity, deal_price = checkout_solution.get_deal_info(
+            "A for 25", "B"
+        )
         self.assertEqual(deal_quantity, None)
         self.assertEqual(deal_price, None)
 
     def test_get_deal_info_invalid(self):
-        deal_quantity, deal_price = checkout_solution.get_deal_info("2A for price of 80", "A")
+        deal_quantity, deal_price = checkout_solution.get_deal_info(
+            "2A for price of 80", "A"
+        )
         self.assertEqual(deal_quantity, None)
         self.assertEqual(deal_price, None)
 
@@ -63,4 +69,5 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
+
 
