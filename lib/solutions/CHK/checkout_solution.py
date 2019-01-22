@@ -55,12 +55,15 @@ def get_deal_info(deal, item):
     """
     deal_code_quantity, deal_price = deal.split(' for ')
     deal_quantity, deal_item = parse_sku(deal_code_quantity)
-    if not deal_price.isdigit() or \
-        deal_quantity) != 1:
+    if (
+        not deal_price.isdigit() or
+        None in (deal_quantity, deal_item) or
+        item != deal_item
+    ):
         # invalid format for deal
         return None, None
 
-    return int(quantity[0]), int(deal_price)
+    return int(deal_quantity), int(deal_price)
 
 
 def get_cost(prices, item, quantity):
@@ -73,7 +76,7 @@ def get_cost(prices, item, quantity):
     """
     item_price = prices[item]
     if item_price["deal"]:
-        deal_quantity, deal_price = get_deal_info(item_price["deal"])
+        deal_quantity, deal_price = get_deal_info(item_price["deal"], item)
         if None in (deal_quantity, deal_price):
             # invalid deal format
             return None
@@ -114,6 +117,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 

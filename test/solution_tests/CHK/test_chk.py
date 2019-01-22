@@ -20,17 +20,22 @@ class TestParseSKU(unittest.TestCase):
 
 class TestDealInfo(unittest.TestCase):
     def test_get_deal_info(self):
-        deal_quantity, deal_price = checkout_solution.get_deal_info("2A for 80")
+        deal_quantity, deal_price = checkout_solution.get_deal_info("2A for 80", "A")
         self.assertEqual(deal_quantity, 2)
         self.assertEqual(deal_price, 80)
 
     def test_get_deal_info_no_quantity(self):
-        deal_quantity, deal_price = checkout_solution.get_deal_info("A for 25")
+        deal_quantity, deal_price = checkout_solution.get_deal_info("A for 25", "A")
         self.assertEqual(deal_quantity, 1)
         self.assertEqual(deal_price, 25)
+        
+    def test_get_deal_info_wrong_item(self):
+        deal_quantity, deal_price = checkout_solution.get_deal_info("A for 25", "B")
+        self.assertEqual(deal_quantity, None)
+        self.assertEqual(deal_price, None)
 
     def test_get_deal_info_invalid(self):
-        deal_quantity, deal_price = checkout_solution.get_deal_info("2A for price of 80")
+        deal_quantity, deal_price = checkout_solution.get_deal_info("2A for price of 80", "A")
         self.assertEqual(deal_quantity, None)
         self.assertEqual(deal_price, None)
 
@@ -41,5 +46,6 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("B"), 30)
         self.assertEqual(checkout_solution.checkout("C"), 20)
         self.assertEqual(checkout_solution.checkout("D"), 15)
+
 
 
