@@ -104,7 +104,13 @@ def get_deal_info(deal, item):
 def calculate_saving(deal, item_prices):
     """
     Parse the deal string and calculate how much money is saved
-    when this deal gets applied.
+    when this deal gets applied. Also returns deal requirement.
+    Args:
+        deal (str): deal information
+        item_prices (dict): {item: price}
+    Returns:
+        requirements list(str): shows what is needed to complete deal, eg. [2E, B]
+        saving (int): Total saving this deal gives
     """
     free_re = re.search(r'\w+ get one ([^\n]+) free', deal)
     if free_re:
@@ -174,3 +180,4 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
