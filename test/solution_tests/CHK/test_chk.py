@@ -5,8 +5,9 @@ from solutions.CHK import checkout_solution
 
 class TestLoadPrices(unittest.TestCase):
     def test_load_prices(self):
-        prices = checkout_solution.load_prices()
-        self.assertEqual(len(prices), 4)
+        prices, deals = checkout_solution.load_prices()
+        self.assertEqual(len(prices), 5)
+        self.assertEqual(len(deals), )
 
 
 class TestParseDealCode(unittest.TestCase):
@@ -69,3 +70,4 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
+

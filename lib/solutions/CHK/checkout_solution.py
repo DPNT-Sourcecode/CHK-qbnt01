@@ -14,14 +14,11 @@ def load_prices():
     deals = {}
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        for (item, price, deals) in csv_reader:
+        for (item, price, item_deals) in csv_reader:
             prices[item] = int(price)
             if deals:
-                deals[item] = 
-        prices = {
-            row[0]: 
-            for row in csv_reader
-        }
+                deals[item] = item_deals
+
     return prices, deals
 
 
@@ -52,6 +49,9 @@ def parse_deal_code(deal_code):
         item = result[1]
 
     return quantity, item
+
+
+
 
 
 def get_deal_info(deal, item):
@@ -114,7 +114,7 @@ def checkout(skus):
 
     total_cost = 0
     prices = load_prices()
-    items = Counter(skus)
+    items_counter = Counter(skus)
     for item, quantity in items.iteritems():
         if None in (item, quantity) or item not in prices:
             # invalid input
@@ -128,6 +128,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
