@@ -9,20 +9,16 @@ def load_prices():
     Loads data from storage (prices.csv)
     Returns:
         item_prices (dict): price information for each item - {item: price}
-        item_deals (dict): all deals that contain the item  - {item: [deal1, deal2, etc.]}
+        item_deals (set): all unique deals in the dataset
     """
     item_prices = {}
-    item_deals = {}
+    item_deals = set([])
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
         for (item, price, deals) in csv_reader:
             item_prices[item] = int(price)
-            if deals:
-                if item not in item_deals:
-                    item_deals[item] = set([])
-
-                for deal in deals.split(','):
-                    item_deals[item].add(deal)
+            for deal in deals.split(','):
+                item_deals.add(deal)
 
     return item_prices, item_deals
 
@@ -118,20 +114,15 @@ def get_ordered_deals(item_prices, item_deals):
     apply best deals first.
     Args:
         item_prices (dict): {item: price}
-        item_deals (dict): {item: [deal1, deal2, etc.]}
+        item_deals (set): set([deal1, deal2, etc.])
     Returns:
         ordered_deals (list(tuple)): 
             [(deal_x, saving_x), (deal_y, saving_y), ..]
     """
-    deals_seen = set([])
     deal_savings = []
-    for _, deals in item_deals.iteritems():
-        for deal in deals:
-            if deal in deals_seen:
-                continue
-
-            saving = calculate_saving(deal, item_prices)
-            deal_savings.append((deal, saving))
+    for deal in item_deals:
+        saving = calculate_saving(deal, item_prices)
+        deal_savings.append((deal, saving))
 
     # sort by saving
     ordered_deals = deal_savings.sort(key=operator.itemgetter(1))
@@ -172,6 +163,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
