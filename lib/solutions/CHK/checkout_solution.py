@@ -10,13 +10,9 @@ def load_prices():
     """
     with open('prices.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        else:
-            print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
-            line_count += 1
+    prices = [row for row ini csv_reader]
+    return prices
+        
     
 
 # noinspection PyUnusedLocal
@@ -30,6 +26,7 @@ def checkout(skus):
         Integer representing the total checkout value of the items 
     """
     
+
 
 
 
