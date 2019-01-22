@@ -92,14 +92,17 @@ class TestCheckout(unittest.TestCase):
 class TestEvaluateDeals(unittest.TestCase):
     def test_choose_optimal_deal(self):
         ordered_deals = [
-            ("2E get one B free", ["2E", "B"], 30, 120),
+            ("2E get one B free", ["2E", "B"], 30, 80),
             ("3B for 69", ["3B"], 21, 69),
             ("3E for 100", ["3E"], 20, 100),
         ]
         items_counter = Counter({'B': 3, 'E': 3})
+
+        total_cost = checkout_solution.evaluate_deals(items_counter, ordered_deals)
+        optimal_cost = 69 + 100 # won't work...
+        self.assertEqual()
         
-        checkout_solution.evaluate_deals(items_counter, ordered_deals)
-        
+
 
 
 
