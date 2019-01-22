@@ -110,13 +110,15 @@ def calculate_saving(deal, item_prices):
         item_prices (dict): {item: price}
     Returns:
         requirements (list(str)): shows what is needed to complete deal, eg. [2E, B]
-        saving (int): Total saving this deal gives
+        saving (int): total saving this deal gives
+        cost (int): cost of deal
     """
     free_re = re.search(r'(\w+) get one ([^\n]+) free', deal)
     if free_re:
         # saving is value of free item
         saving = item_prices[free_re.group(2)]
         requirements = list(free_re.groups())
+        cost = 
         return requirements, saving
     else:
         # assuming for now that all other deals are just x-for
@@ -140,8 +142,8 @@ def get_ordered_deals(item_prices, item_deals):
     """
     deal_savings = []
     for deal in item_deals:
-        requirements, saving = calculate_saving(deal, item_prices)
-        deal_savings.append((deal, requirements, saving))
+        requirements, saving, cost = calculate_saving(deal, item_prices)
+        deal_savings.append((deal, requirements, saving, cost))
 
     # sort by saving in descending order
     deal_savings.sort(key=operator.itemgetter(2), reverse=True)
@@ -200,12 +202,15 @@ def checkout(skus):
     ordered_deals = get_ordered_deals(item_prices, item_deals)
     print "ordered_deals", ordered_deals
 
-    for (deal, requirements, saving) in ordered_deals:
+    for (deal, requirements, saving, deal_cost) in ordered_deals:
         reqs_counter = requirements_satisfied(items_counter, requirements)
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
         while reqs_counter is not None and ctr > 0:
+            ctr += 1
+            
+            
         if reqs_counter:
             # apply deal as many times as possible
             
@@ -223,4 +228,5 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
