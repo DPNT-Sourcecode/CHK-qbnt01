@@ -14,10 +14,10 @@ def load_prices():
             row[0]: {"price": int(row[1]), "deal": row[2]}
             for row in csv_reader
         }
-
     return prices
 
-def parse_sku(sku)
+
+def parse_sku(sku):
     """
     Converts an sku and it's quantity into separate parts.
     eg.
@@ -45,6 +45,7 @@ def parse_sku(sku)
 
     return quantity, item
 
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -60,13 +61,14 @@ def checkout(skus):
     prices = load_prices()
     for sku in skus.split(","):
         item, quantity = parse_sku(sku)
-        if sku not in prices:
+        if None in (item, quantity) or item not in prices:
             # invalid input
             return -1
         else:
             total_cost += prices[sku]["price"]
 
     return total_cost
+
 
 
 
