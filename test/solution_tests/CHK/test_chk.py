@@ -18,9 +18,15 @@ class TestParseSKU(unittest.TestCase):
         self.assertEqual(checkout_solution.parse_sku("3A3"), (None, None))
 
 
+class TestDealInfo(unittest.TestCase):
+    def test_get_deal_info(self):
+        deal_quantity, deal_price = checkout_solution.get_deal_info()
+
+
 class TestCheckout(unittest.TestCase):
     def test_checkout_simple(self):
         self.assertEqual(checkout_solution.checkout("A"), 50)
         self.assertEqual(checkout_solution.checkout("B"), 30)
         self.assertEqual(checkout_solution.checkout("C"), 20)
         self.assertEqual(checkout_solution.checkout("D"), 15)
+

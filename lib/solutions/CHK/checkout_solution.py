@@ -72,7 +72,10 @@ def get_cost(prices, item, quantity):
     item_price = prices[item]
     if item_price["deal"]:
         deal_quantity, deal_price = get_deal_info(item_price["deal"])
-        
+        if None in (deal_quantity, deal_price):
+            # invalid deal format
+            return None
+
         # apply deal as many times as possible
         num_deals, remainder = divmod(quantity, deal_quantity)
         cost = (num_deals * deal_price) + (remainder * item_price["price"])
@@ -101,8 +104,14 @@ def checkout(skus):
             # invalid input
             return -1
         else:
-            total_cost += get_cost(prices, item, quantity)
+            item_cost = get_cost(prices, item, quantity)
+            if item_cost is None:
+                # invalid input
+                return -1
+            else:
+                total_cost += item_cost
 
     return total_cost
+
 
 
