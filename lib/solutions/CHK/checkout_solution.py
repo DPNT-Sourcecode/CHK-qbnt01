@@ -113,8 +113,11 @@ def calculate_saving(deal, item_prices):
     else:
         # assuming for now that all other deals are just x-for
         # saving is difference between deal price and quantity * base price
-        [re.findall(r'(\w+) for (\w+)', deal)
-    return 0
+        print deal
+        print re.findall(r'(\w+) for (\w+)', deal)
+        [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
+        deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
+        return deal_price - (deal_quantity * item_prices[deal_item])
 
 
 def get_ordered_deals(item_prices, item_deals):
@@ -172,6 +175,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
