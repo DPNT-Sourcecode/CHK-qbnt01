@@ -1,5 +1,6 @@
 from collections import Counter
 import csv
+import operator
 import re
 
 
@@ -104,9 +105,16 @@ def get_ordered_deals(item_prices, item_deals):
     Returns a list of deals in order of saving, so we can 
     apply best deals first.
     """
-    ordered_deals = set([])
+    deals_seen = set([])
+    deal_savings = []
     for _, deal in item_deals.iteritems():
+        if deal in deals_seen:
+            continue
+
+        saving = calculate_saving(deal)
+        deal_savings.append( (deal, saving) )
         
+    ordered_deals = deal_savings.sort(key=operator.itemgetter(1))
 
 
 # noinspection PyUnusedLocal
@@ -141,10 +149,3 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
-
-
-
-
-
-
-
