@@ -113,7 +113,8 @@ def calculate_saving(deal, item_prices):
         deal (str): deal information
         item_prices (dict): {item: price}
     Returns:
-        requirements (list(str)): shows what is needed to complete deal, eg. [2E, B]
+        requirements (collections.Counter):  items and quantity required to complete deal
+            eg. {'F': 3}
         saving (int): total saving this deal gives
         cost (int): cost of deal
     """
@@ -130,7 +131,7 @@ def calculate_saving(deal, item_prices):
         [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
         deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
         saving = (deal_quantity * item_prices[deal_item]) - int(deal_price)
-        requirements = [deal_code_quantity]
+        requirements = aggregate_requirements([deal_code_quantity])
         cost = int(deal_price)
 
     return requirements, saving, cost
@@ -253,3 +254,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+

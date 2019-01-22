@@ -22,6 +22,22 @@ class TestParseDealCode(unittest.TestCase):
         )
 
 
+class TestAggregateRequirements(unittest.TestCase):
+    def test_aggregate_requirements(self):
+        groups = ('2E', 'B')
+        self.assertEqual(
+            checkout_solution.aggregate_requirements(groups),
+            Counter({'E': 2, 'B': 1}),
+        )
+
+    def test_aggregate_requirements_dupe_item(self):
+        groups = ('2E', 'E')
+        self.assertEqual(
+            checkout_solution.aggregate_requirements(groups),
+            Counter({'E': 3}),
+        )
+
+
 class TestCalculateSaving(unittest.TestCase):
     def test_calc_saving_get_one_free(self):
         item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
@@ -109,3 +125,4 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
