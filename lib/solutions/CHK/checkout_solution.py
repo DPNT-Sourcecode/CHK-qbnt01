@@ -251,15 +251,17 @@ def checkout(skus):
     total_cost = 0
     item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
+    print items_counter
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
 
     deals_cost, items_counter = evaluate_deals(items_counter, ordered_deals)
     total_cost += deals_cost
-    
+
     remaining_cost = evaluate_remaining_items(
         items_counter, item_prices
     )
     total_cost += remaining_cost
 
     return total_cost
+

@@ -128,7 +128,10 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("FFF"), 20)
 
     def test_advanced_selection(self):
-        self.as
+        self.assertEqual(checkout_solution.checkout(
+            ""),
+            10,
+        )
 
 # Cannot use mock in online IDE... but I would test that this scenario doesn't apply the deal
 #    def test_get_one_free_same_item_not_satisfied(self):
@@ -151,4 +154,5 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
 
