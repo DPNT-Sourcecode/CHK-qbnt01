@@ -98,7 +98,6 @@ def get_requirements(groups):
         list(str): what is needed to complete the deal eg. [2E, B]
     """
     print groups
-    print list(groups)
     return list(groups)
 
 def calculate_saving(deal, item_prices):
@@ -249,5 +248,6 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
