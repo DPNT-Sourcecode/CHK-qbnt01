@@ -42,16 +42,16 @@ class TestCalculateSaving(unittest.TestCase):
     def test_calc_saving_get_one_free(self):
         item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
         deal = '2E get one B free'
-            
+
         saving = checkout_solution.calculate_saving(deal, item_prices)
-        self.assertEqual(saving, (['2E', 'B'], 30, 80))
+        self.assertEqual(saving, (Counter({'E': 2, 'B': 1}), 30, 80))
 
     def test_calc_saving_x_for(self):
         item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
         deal = '5A for 200'
-            
+
         saving = checkout_solution.calculate_saving(deal, item_prices)
-        self.assertEqual(saving, (['5A'], 50, 200))
+        self.assertEqual(saving, (Counter({'A': 5}), 50, 200))
 
 
 class TestDealInfo(unittest.TestCase):
@@ -107,9 +107,10 @@ class TestCheckout(unittest.TestCase):
 
     def test_get_one_free(self):
         self.assertEqual(checkout_solution.checkout("EEB"), 80)
+
     def test_get_one_free_same_item(self):
-        self.assertEqual(checkout_solution.checkout("FF"), 21)
-#        self.assertEqual(checkout_solution.checkout("FFF"), 20)
+        self.assertEqual(checkout_solution.checkout("FF"), 20)
+        self.assertEqual(checkout_solution.checkout("FFF"), 20)
 
 # ignore this issue for now, will try to solve later
 #class TestEvaluateDeals(unittest.TestCase):
@@ -125,4 +126,5 @@ class TestCheckout(unittest.TestCase):
 #        optimal_deals_cost = 69 + 100 # won't work...
 #        self.assertEqual(deals_cost, optimal_deals_cost)
         
+
 
