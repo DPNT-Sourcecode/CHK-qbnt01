@@ -84,21 +84,7 @@ def get_cost(prices, item, quantity):
         item (str): item_code
         quantity (int): quantity of item in basket
     """
-    item_price = prices[item]
-    if item_price["deals"]:
-        
-        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
-        if None in (deal_quantity, deal_price):
-            # invalid deal format
-            return None
-
-        # apply deal as many times as possible
-        num_deals, remainder = divmod(quantity, deal_quantity)
-        cost = (num_deals * deal_price) + (remainder * item_price["price"])
-    else:
-        cost = quantity * item_price["price"]
-
-    return cost
+    return quantity * prices[item]
 
 
 def calculate_saving(deal, item_prices):
@@ -120,6 +106,7 @@ def calculate_saving(deal, item_prices):
         requirements = list(free_re.groups())
         quantity, item = parse_deal_code(free_re.groups(1))
         cost = get_cost(item_prices, item, quantity)
+
         return requirements, saving, cost
     else:
         # assuming for now that all other deals are just x-for
@@ -127,7 +114,8 @@ def calculate_saving(deal, item_prices):
         [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
         deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
         saving = (deal_quantity * item_prices[deal_item]) - int(deal_price)
-        return deal_code_quantity, saving
+
+        return deal_code_quantity, saving, int(deal_price)
 
 
 def get_ordered_deals(item_prices, item_deals):
@@ -179,9 +167,6 @@ def requirements_satisfied(items_counter, requirements):
     # if all requirements satisfied then return True
     return c
 
-        
-
-
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -210,7 +195,8 @@ def checkout(skus):
         ctr = 10
         while reqs_counter is not None and ctr > 0:
             ctr += 1
-            
+            total_cost += deal_cost
+            items_counter -= reqs_counter
             
         if reqs_counter:
             # apply deal as many times as possible
@@ -229,6 +215,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
