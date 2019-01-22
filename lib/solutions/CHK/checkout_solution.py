@@ -109,18 +109,21 @@ def calculate_saving(deal, item_prices):
         deal (str): deal information
         item_prices (dict): {item: price}
     Returns:
-        requirements list(str): shows what is needed to complete deal, eg. [2E, B]
+        requirements (list(str)): shows what is needed to complete deal, eg. [2E, B]
         saving (int): Total saving this deal gives
     """
-    free_re = re.search(r'\w+ get one ([^\n]+) free', deal)
+    free_re = re.search(r'(\w+) get one ([^\n]+) free', deal)
     if free_re:
         # saving is value of free item
-        return item_prices[free_re.group(1)]
+        saving = item_prices[free_re.group(2)]
+        requirements = list(free_re.groups())
+        return requirements, saving
     else:
         # assuming for now that all other deals are just x-for
         # saving is difference between deal price and quantity * base price
         [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
         deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
+        saving = 
         return (deal_quantity * item_prices[deal_item]) - int(deal_price)
 
 
@@ -180,4 +183,5 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
