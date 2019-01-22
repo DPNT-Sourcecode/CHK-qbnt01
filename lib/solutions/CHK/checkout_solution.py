@@ -87,17 +87,18 @@ def get_cost(prices, item, quantity):
     return quantity * prices[item]
 
 
-def get_requirements(groups):
+def aggregate_requirements(groups):
     """
     Returns requirements for deal from multiple groups.
     If the groups contain the same item then they should be combined.
     eg. 2F, F should become 3F
     Args:
-        groups
+        groups (tuple) items and quantities required
     Returns:
         list(str): what is needed to complete the deal eg. [2E, B]
     """
-    print groups
+    for group in groups:
+        if group 
     return list(groups)
 
 def calculate_saving(deal, item_prices):
@@ -116,7 +117,7 @@ def calculate_saving(deal, item_prices):
     if free_re:
         # saving is value of free item
         saving = item_prices[free_re.group(2)]
-        requirements = get_requirements(free_re.groups())
+        requirements = aggregate_requirements(free_re.groups())
         quantity, item = parse_deal_code(free_re.group(1))
         cost = get_cost(item_prices, item, quantity)
     else:
@@ -248,6 +249,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
