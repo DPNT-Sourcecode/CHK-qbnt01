@@ -106,16 +106,16 @@ def calculate_saving(deal, item_prices):
         requirements = list(free_re.groups())
         quantity, item = parse_deal_code(free_re.group(1))
         cost = get_cost(item_prices, item, quantity)
-
-        return requirements, saving, cost
     else:
         # assuming for now that all other deals are just x-for
         # saving is difference between deal price and quantity * base price
         [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
         deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
         saving = (deal_quantity * item_prices[deal_item]) - int(deal_price)
+        requirements = [deal_code_quantity]
+        cost = int(deal_price)
 
-        return deal_code_quantity, saving, int(deal_price)
+    return requirements, saving, cost
 
 
 def get_ordered_deals(item_prices, item_deals):
@@ -219,6 +219,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
