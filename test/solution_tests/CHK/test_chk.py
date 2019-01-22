@@ -1,3 +1,4 @@
+from collections import Counter
 import unittest
 
 from solutions.CHK import checkout_solution
@@ -91,10 +92,15 @@ class TestCheckout(unittest.TestCase):
 class TestEvaluateDeals(unittest.TestCase):
     def test_choose_optimal_deal(self):
         ordered_deals = [
-            ("3B for 69", ["3B"], 31, 59),
-            ("2E get one B free", ["2E", "B"], 30, 80),
+            ("2E get one B free", ["2E", "B"], 30, 120),
+            ("3B for 69", ["3B"], 21, 69),
+            ("3E for 100", ["3E"], 20, 100),
         ]
+        items_counter = Counter({'B': 3, 'E': 3})
         
+        checkout_solution.evaluate_deals(items_counter, ordered_deals)
+        
+
 
 
 
