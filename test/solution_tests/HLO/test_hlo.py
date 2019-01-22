@@ -1,21 +1,9 @@
-import unittest
-
-from solutions.CHK import (
-    checkout_solution,
-    load_prices,
-)
-
-class TestLoadPrices(unittest.TestCase):
-    def test_load_prices(self):
-        prices = load_prices()
-        self.assertEqual(prices, None)
-
-class TestCheckout(unittest.TestCase):
-    def test_checkout_simple(self):
-        self.assertEqual(checkout_solution("A"), 50)
-        self.assertEqual(checkout_solution("B"), 30)
-        self.assertEqual(checkout_solution("C"), 20)
-        self.assertEqual(checkout_solution("D"), 15)
+from solutions.CHK import checkout_solution
 
 
+class TestCheckout():
+    def test_checkout(self):
+        assert checkout_solution.checkout("Bob") == "Hello, Bob!"
 
+    def test_hello_null(self):
+        assert hello_solution.hello("") == "Hello, World!"

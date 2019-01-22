@@ -9,8 +9,9 @@ def load_prices():
     Where `deal` can be null
     """
     with open('prices.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    prices = [row for row ini csv_reader]
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        prices = [row for row ini csv_reader]
+    
     return prices
         
     
@@ -26,7 +27,3 @@ def checkout(skus):
         Integer representing the total checkout value of the items 
     """
     
-
-
-
-
