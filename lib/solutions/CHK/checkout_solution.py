@@ -115,7 +115,7 @@ def calculate_saving(deal, item_prices):
         # saving is difference between deal price and quantity * base price
         [(deal_code_quantity, deal_price)] = re.findall(r'(\w+) for (\w+)', deal)
         deal_quantity, deal_item = parse_deal_code(deal_code_quantity)
-        return int(deal_price) - (deal_quantity * item_prices[deal_item])
+        return (deal_quantity * item_prices[deal_item]) - int(deal_price)
 
 
 def get_ordered_deals(item_prices, item_deals):
@@ -156,9 +156,10 @@ def checkout(skus):
     item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
 
-    print "item_prices", item_prices
-    print "item_deals", item_deals
     ordered_deals = get_ordered_deals(item_prices, item_deals)
+    print "ordered_deals", ordered_deals
+    
+    for 
 
 #    for item, quantity in items_counter.iteritems():
 #        if None in (item, quantity) or item not in item_prices:
@@ -173,10 +174,3 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
-
-
-
-
-
-
-
