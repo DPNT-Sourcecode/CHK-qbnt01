@@ -170,10 +170,11 @@ def requirements_satisfied(items_counter, requirements):
             # requirements for this deal not satisfied
             return None
             
+        # if item is already in c then this will sum the values
         c.update({item: quantity})
 
     # if all requirements satisfied then return True
-    return True
+    return c
 
         
 
@@ -200,7 +201,8 @@ def checkout(skus):
     print "ordered_deals", ordered_deals
     
     for (deal, requirements, saving) in ordered_deals:
-        if requirements_satisfied(items_counter, requirements):
+        reqs_counter = requirements_satisfied(items_counter, requirements)
+        if reqs_counter:
             # apply deal as many times as possible
             pass
 
@@ -217,6 +219,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
