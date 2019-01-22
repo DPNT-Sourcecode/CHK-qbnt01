@@ -251,7 +251,6 @@ def checkout(skus):
     total_cost = 0
     item_prices, item_deals = load_prices()
     items_counter = Counter(skus)
-    print items_counter
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
 
@@ -264,4 +263,5 @@ def checkout(skus):
     total_cost += remaining_cost
 
     return total_cost
+
 
