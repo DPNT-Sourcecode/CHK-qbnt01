@@ -100,10 +100,21 @@ def get_cost(prices, item, quantity):
     return cost
 
 
+def calculate_saving(deal, item_prices):
+    """
+    Parse the deal string and calculate how much money is saved
+    when this deal gets applied.
+    """
+    return 0
+
+
 def get_ordered_deals(item_prices, item_deals):
     """
     Returns a list of deals in order of saving, so we can 
     apply best deals first.
+    Args:
+        item_prices (dict): {item: price}
+        
     """
     deals_seen = set([])
     deal_savings = []
@@ -111,10 +122,12 @@ def get_ordered_deals(item_prices, item_deals):
         if deal in deals_seen:
             continue
 
-        saving = calculate_saving(deal)
-        deal_savings.append( (deal, saving) )
-        
+        saving = calculate_saving(deal, item_prices)
+        deal_savings.append((deal, saving))
+
+    # sort by saving
     ordered_deals = deal_savings.sort(key=operator.itemgetter(1))
+    return ordered_deals
 
 
 # noinspection PyUnusedLocal
@@ -149,3 +162,4 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
