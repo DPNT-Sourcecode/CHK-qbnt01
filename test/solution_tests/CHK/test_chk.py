@@ -22,12 +22,19 @@ class TestParseDealCode(unittest.TestCase):
 
 
 class TestCalculateSaving(unittest.TestCase):
-    def test_calc_saving(self):
+    def test_calc_saving_get_one_free(self):
         item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
-        item_deals = set(['2E get one B free', '2B for 45',
-            '5A for 200', '3A for 130'])
+        deal = '2E get one B free'
             
-        checkout_solution.calculate_saving()
+        saving = checkout_solution.calculate_saving(deal, item_prices)
+        self.assertEqual(saving, 30)
+
+    def test_calc_saving_x_for(self):
+        item_prices = {'A': 50, 'C': 20, 'B': 30, 'E': 40, 'D': 15}
+        deal = '5A for 200'
+            
+        saving = checkout_solution.calculate_saving(deal, item_prices)
+        self.assertEqual(saving, 50)
 
 
 class TestDealInfo(unittest.TestCase):
@@ -79,4 +86,5 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_multiple_deals(self):
         self.assertEqual(checkout_solution.checkout("AAAABBBC"), 180 + 75 + 20)
+
 

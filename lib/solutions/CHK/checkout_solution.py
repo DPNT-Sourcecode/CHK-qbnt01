@@ -106,6 +106,7 @@ def calculate_saving(deal, item_prices):
     Parse the deal string and calculate how much money is saved
     when this deal gets applied.
     """
+    
 
     return 0
 
@@ -165,6 +166,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
