@@ -46,15 +46,17 @@ def parse_sku(sku):
     return quantity, item
 
 
-def get_deal_info(deal):
+def get_deal_info(deal, item):
     """
     Returns quantity and price of deal from description
     Args:
         deal (str): description of deal, eg. "2B for 45"
+        item (str): sku code for item we are expecting deal for
     """
-    deal_quantity, deal_price = deal.split(' for ')
-    quantity = re.findall('\d+', deal_quantity)
-    if not deal_price.isdigit() or len(quantity) != 1:
+    deal_code_quantity, deal_price = deal.split(' for ')
+    deal_quantity, deal_item = parse_sku(deal_code_quantity)
+    if not deal_price.isdigit() or \
+        deal_quantity) != 1:
         # invalid format for deal
         return None, None
 
@@ -112,6 +114,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
