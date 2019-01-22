@@ -152,7 +152,16 @@ def requirements_satisfied(items_counter, requirements):
     """
     Checks if items in requirements are present in basket (items_counter)
     """
-    
+    for r in requirements:
+        quantity, item = parse_deal_code(r)
+        if (
+            None in (quantity, item)
+            or item not in items_counter
+            or 
+            :
+            return False
+
+        
 
 
 
@@ -194,6 +203,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
