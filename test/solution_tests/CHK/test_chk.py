@@ -100,8 +100,9 @@ class TestEvaluateDeals(unittest.TestCase):
 
         total_cost = checkout_solution.evaluate_deals(items_counter, ordered_deals)
         optimal_cost = 69 + 100 # won't work...
-        self.assertEqual()
+        self.assertEqual(total_cost, optimal_cost)
         
+
 
 
 

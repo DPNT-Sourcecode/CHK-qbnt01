@@ -178,6 +178,7 @@ def evaluate_deals(items_counter, ordered_deals):
         ordered_deals (list(tuples)): [(deal, requirements, saving, deal_cost)]
     Returns:
         (int): cost of deals
+        updated items_counter
     """
     total_cost = 0
     for (deal, requirements, saving, deal_cost) in ordered_deals:
@@ -190,12 +191,14 @@ def evaluate_deals(items_counter, ordered_deals):
             ctr -= 1
             total_cost += deal_cost
             # subtract items from basket
+            print "bef: ", items_counter
             items_counter -= reqs_counter
+            print "aft: ", items_counter
             
             # recalculate for next loop iteration
             reqs_counter = requirements_satisfied(items_counter, requirements)
 
-    return total_cost
+    return total_cost, items_counter
 
 
 # noinspection PyUnusedLocal
@@ -216,9 +219,9 @@ def checkout(skus):
     items_counter = Counter(skus)
 
     ordered_deals = get_ordered_deals(item_prices, item_deals)
-    
+    print "before: ", items_counter
     total_cost += evaluate_deals(items_counter, ordered_deals)
-
+    print "after: ", items_counter
     # for any remaining items, just add cost
     for item, quantity in items_counter.iteritems():
         if None in (item, quantity) or item not in item_prices:
@@ -233,6 +236,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
