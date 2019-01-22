@@ -47,5 +47,16 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("C"), 20)
         self.assertEqual(checkout_solution.checkout("D"), 15)
 
+    def test_checkout_deal(self):
+        self.assertEqual(checkout_solution.checkout("2A"), 100)
+        self.assertEqual(checkout_solution.checkout("3A"), 130)
+        self.assertEqual(checkout_solution.checkout("4A"), 180)
+        self.assertEqual(checkout_solution.checkout("5A"), 230)
+        self.assertEqual(checkout_solution.checkout("6A"), 260)
+
+    def test_checkout_multiple_items(self):
+        self.assertEqual(checkout_solution.checkout("A,B"), 80)
+
+
 
 
