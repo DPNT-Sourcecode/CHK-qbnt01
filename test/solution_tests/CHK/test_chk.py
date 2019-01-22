@@ -8,6 +8,10 @@ class TestLoadPrices(unittest.TestCase):
         prices = checkout_solution.load_prices()
         self.assertEqual(len(prices), 4)
 
+class TestParseSKU(unittest.TestCase):
+    def test_parse_sku(self):
+        self.assertEqual(checkout_solution.parse_skew("A"), (1, "A"))
+        self.assertEqual(checkout_solution.parse_skew("3A"), (3, "A"))
 
 class TestCheckout(unittest.TestCase):
     def test_checkout_simple(self):
@@ -15,5 +19,6 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout_solution.checkout("B"), 30)
         self.assertEqual(checkout_solution.checkout("C"), 20)
         self.assertEqual(checkout_solution.checkout("D"), 15)
+
 
 

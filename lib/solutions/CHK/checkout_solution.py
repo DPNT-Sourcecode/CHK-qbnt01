@@ -37,6 +37,7 @@ def parse_sku(sku)
         quantity = 1
         item = result[0]
     elif len(result) != 2:
+        # something has gone wrong with the format
         return None, None
     else:
         quantity = int(result[0])
@@ -66,6 +67,7 @@ def checkout(skus):
             total_cost += prices[sku]["price"]
 
     return total_cost
+
 
 
 
