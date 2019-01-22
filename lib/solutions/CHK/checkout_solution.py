@@ -7,14 +7,14 @@ def load_prices():
     """
     Loads data from storage (prices.csv)
     Returns:
-        prices (dict): price information for each item - {item: price}
-        deals (dict): all deals that contain the item  - {item: [deal1, deal2, etc.]}
+        item_prices (dict): price information for each item - {item: price}
+        item_deals (dict): all deals that contain the item  - {item: [deal1, deal2, etc.]}
     """
-    prices = {}
-    deals = {}
+    item_prices = {}
+    item_deals = {}
     with open('prices.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        for (item, price, item_deals) in csv_reader:
+        for (item, price, deals) in csv_reader:
             prices[item] = int(price)
             if deals:
                 deals[item] = item_deals
@@ -113,8 +113,11 @@ def checkout(skus):
         return 0
 
     total_cost = 0
-    prices = load_prices()
+    prices, item_deals = load_prices()
     items_counter = Counter(skus)
+    
+    # 
+    
     for item, quantity in items.iteritems():
         if None in (item, quantity) or item not in prices:
             # invalid input
@@ -128,6 +131,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
