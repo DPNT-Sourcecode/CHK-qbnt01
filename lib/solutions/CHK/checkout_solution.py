@@ -54,7 +54,8 @@ def get_cost(prices, item, quantity):
         item (str): item_code
         quantity (int): quantity of item in basket
     """
-    
+    item_price = prices[item]
+    if item_price["deal"] and quantity >= get_deal_quantity(item_price["deal"]):
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -79,6 +80,7 @@ def checkout(skus):
 #            total_cost += prices[item]["price"]
 
     return total_cost
+
 
 
 
