@@ -180,6 +180,7 @@ def checkout(skus):
     """
     if not skus:
         return 0
+    print "skus", skus
 
     total_cost = 0
     item_prices, item_deals = load_prices()
@@ -189,7 +190,11 @@ def checkout(skus):
     print "ordered_deals", ordered_deals
 
     for (deal, requirements, saving, deal_cost) in ordered_deals:
+        print "deal: ", deal
+        print "requirements", requirements
+        print "items_counter", items_counter
         reqs_counter = requirements_satisfied(items_counter, requirements)
+        print "reqs_counter", reqs_counter
         # sanity check to avoid infinite loop. Assuming someone can't
         # apply a deal more than ctr times
         ctr = 10
@@ -214,6 +219,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
