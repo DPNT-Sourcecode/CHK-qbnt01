@@ -14,7 +14,7 @@ def load_prices():
     item_prices = {}
     item_deals = {}
     with open('prices.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
+        csv_reader = csv.reader(csv_file, delimiter=';')
         for (item, price, deals) in csv_reader:
             item_prices[item] = int(price)
             if deals:
@@ -75,29 +75,29 @@ def get_deal_info(deal, item):
     return int(deal_quantity), int(deal_price)
 
 
-def get_cost(prices, item, quantity):
-    """
-    Calculates cost of item based on quantity, including any deals
-    Args:
-        prices (dict): {item_code: {"price": price, "deals": deal}}
-        item (str): item_code
-        quantity (int): quantity of item in basket
-    """
-    item_price = prices[item]
-    if item_price["deals"]:
-        
-        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
-        if None in (deal_quantity, deal_price):
-            # invalid deal format
-            return None
-
-        # apply deal as many times as possible
-        num_deals, remainder = divmod(quantity, deal_quantity)
-        cost = (num_deals * deal_price) + (remainder * item_price["price"])
-    else:
-        cost = quantity * item_price["price"]
-
-    return cost
+#def get_cost(prices, item, quantity):
+#    """
+#    Calculates cost of item based on quantity, including any deals
+#    Args:
+#        prices (dict): {item_code: {"price": price, "deals": deal}}
+#        item (str): item_code
+#        quantity (int): quantity of item in basket
+#    """
+#    item_price = prices[item]
+#    if item_price["deals"]:
+#        
+#        deal_quantity, deal_price = get_deal_info(item_price["deals"], item)
+#        if None in (deal_quantity, deal_price):
+#            # invalid deal format
+#            return None
+#
+#        # apply deal as many times as possible
+#        num_deals, remainder = divmod(quantity, deal_quantity)
+#        cost = (num_deals * deal_price) + (remainder * item_price["price"])
+#    else:
+#        cost = quantity * item_price["price"]
+#
+#    return cost
 
 
 def calculate_saving(deal, item_prices):
@@ -156,11 +156,11 @@ def checkout(skus):
     ordered_deals = get_ordered_deals(item_prices, item_deals)
 
     for item, quantity in items_counter.iteritems():
-        if None in (item, quantity) or item not in prices:
+        if None in (item, quantity) or item not in item_prices:
             # invalid input
             return -1
         else:
-            item_cost = get_cost(prices, item, quantity)
+            item_cost = get_cost(item_prices, item, quantity)
             if item_cost is None:
                 # invalid input
                 return -1
