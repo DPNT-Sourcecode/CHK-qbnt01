@@ -38,8 +38,6 @@ def parse_deal_code(deal_code):
         str - item sku code
     """
     # separate numbers and letters
-    print deal_code
-    print 
     result = re.findall('\d+|\D+', deal_code)
     if len(result) == 1:
         # if quantity not specified, default to 1
@@ -106,7 +104,7 @@ def calculate_saving(deal, item_prices):
         # saving is value of free item
         saving = item_prices[free_re.group(2)]
         requirements = list(free_re.groups())
-        quantity, item = parse_deal_code(free_re.groups(1))
+        quantity, item = parse_deal_code(free_re.group(1))
         cost = get_cost(item_prices, item, quantity)
 
         return requirements, saving, cost
@@ -216,6 +214,7 @@ def checkout(skus):
                 total_cost += item_cost
 
     return total_cost
+
 
 
 
