@@ -148,6 +148,14 @@ def get_ordered_deals(item_prices, item_deals):
     return deal_savings
 
 
+def requirements_satisfied(items_counter, requirements):
+    """
+    Checks if items in requirements are present in basket (items_counter)
+    """
+    
+
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -168,7 +176,10 @@ def checkout(skus):
     ordered_deals = get_ordered_deals(item_prices, item_deals)
     print "ordered_deals", ordered_deals
     
-    for 
+    for (deal, requirements, saving) in ordered_deals:
+        if requirements_satisfied(items_counter, requirements):
+            # apply deal as many times as possible
+            pass
 
 #    for item, quantity in items_counter.iteritems():
 #        if None in (item, quantity) or item not in item_prices:
@@ -183,6 +194,7 @@ def checkout(skus):
 #                total_cost += item_cost
 
     return total_cost
+
 
 
 
